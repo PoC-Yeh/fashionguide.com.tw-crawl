@@ -5,7 +5,7 @@ import requests
 #product name
 def product(soup):
     brand = soup.find("span", class_= "style1", itemprop = "brand").text.replace(" ","").replace("\xa0", "")
-    name = soup.find("span", class_= "style1", itemprop = "name").text
+    name = soup.find("span", class_= "style1", itemprop = "name").text.replace("\xa0", "")
     product_full_name = brand + " " + name
     return(product_full_name)
     
