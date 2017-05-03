@@ -41,3 +41,4 @@ for i in range(0, len(new_url_list)):
     inside_list = [product_name, star_unified, comment_star]
     big_list.append(inside_list)
 #print(big)
+
