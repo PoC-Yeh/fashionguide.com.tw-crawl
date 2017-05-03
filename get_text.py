@@ -83,11 +83,4 @@ def get_star_comment(soup):
     
     return(star_dict_list)
     
-    
-#combine all informations    
-def all_list(product_name, star_unified, comment_star):
-    combine = []
-    combine.append(product_name)
-    combine.append(star_unified)
-    combine.append(comment_star)
-    return(combine)
+   
