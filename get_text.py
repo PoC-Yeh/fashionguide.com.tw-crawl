@@ -4,7 +4,10 @@ import requests
 
 #product name
 def product(soup):
-    return(soup.find("span", class_= "style1", itemprop = "brand").text)
+    brand = soup.find("span", class_= "style1", itemprop = "brand").text.replace(" ","").replace("\xa0", "")
+    name = soup.find("span", class_= "style1", itemprop = "name").text
+    product_full_name = brand + " " + name
+    return(product_full_name)
     
 
 #回傳統整框格中的星等
