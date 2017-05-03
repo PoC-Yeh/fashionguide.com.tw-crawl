@@ -35,3 +35,5 @@ def next_comment_page_url(soup):
     elif '下一頁' in font_list and "下10頁" in font_list:
         return("http://www.fashionguide.com.tw" + a_list[-2])
         #print(a_list[-1])
+
+        
