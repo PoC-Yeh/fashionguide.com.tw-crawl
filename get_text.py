@@ -67,17 +67,29 @@ def get_star_comment(soup):
 
         #user information
         user = table.find("td", bgcolor = "#ffffff", align = "left")
-        user_text = user.text.replace("\xa0", "").replace("滿意度:(","").replace("分 / 滿分10分)年齡:",",").replace("皮膚屬性:",",")
+        if "滿意度" in user.text:
+            user_text = user.text.replace("\xa0", "").replace("滿意度:(","").replace("分 / 滿分10分)年齡:",",").replace("皮膚屬性:",",")
+            #['8', '36歲以上', '混合肌']
+            star_info["point"] = int(user_text.split(",")[0]) #turn '8' into integer  
+            age = user_text.split(",")[1]
+            if "~" in age:
+                age_low = "".join(list(age)[:2])
+                star_info["age"] = int(age_low) + 2   #31~35 -->33 
+            elif "以上" in age:
+                star_info["age"] = "over"+ "".join(list(age)[:2]) #36歲以上-->over36
+            if len(user_text.split(",")) == 3:   
+                star_info["skin"] = user_text.split(",")[2]
+        else:
+            user_text = user.text.replace("\xa0", "").replace("年齡:",",").replace("皮膚屬性:",",")
+            #[36歲以上', '混合肌']
+            age = user_text.split(",")[0]
+            if "~" in age:
+                age_low = "".join(list(age)[:2])
+                star_info["age"] = int(age_low) + 2   #31~35 -->33
+            elif "以上" in age:
+                star_info["age"] = "over"+ "".join(list(age)[:2]) #36歲以上-->over36
+            star_info["skin"] = user_text.split(",")[1]
 
-        user_list = []   #['8', '36歲以上', '混合肌']
-        star_info["point"] = int(user_text.split(",")[0]) #turn '8' into integer  
-        age = user_text.split(",")[1]
-        if "~" in age:
-            age_low = "".join(list(age)[:2])
-            star_info["age"] = int(age_low) + 2   #31~35 -->33 
-        elif "以上" in age:
-            star_info["age"] = "over"+ "".join(list(age)[:2]) #36歲以上-->over36
-        star_info["skin"] = user_text.split(",")[2]
         
         star_dict_list.append(star_info)
     
